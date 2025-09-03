@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from .models import Hero
+from .forms import ContatoForm
 
 
 #FBV - function-based view - view baseada em função
@@ -13,3 +14,16 @@ class HeroListView(ListView):
     model = Hero
     template_name = "heroes/lista_herois.html"
     context_object_name = "herois"
+    
+def contato_view(request):
+    form = ContatoForm()  # formulário vazio
+
+    if request.method == "POST":
+        form = ContatoForm(request.POST)
+        if form.is_valid():
+            # Aqui você poderia enviar um e-mail ou salvar no banco
+            print(form.cleaned_data)
+            return render(request, "heroes/contato_sucesso.html")
+
+    return render(request, "heroes/contato.html", {"form": form})
+    
