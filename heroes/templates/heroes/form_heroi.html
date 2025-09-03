@@ -1,15 +1,34 @@
-
 {% extends 'base.html' %}
 
-{% block title %}Novo Herói{% endblock %}
-
-{% block content %}
-<h2>Cadastrar Novo Herói</h2>
-
-<form method="POST" class="card p-3">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-success">Salvar</button>
-</form>
+{% block title %}
+  Novo Herói
 {% endblock %}
 
+{% block content %}
+  <h2>Cadastrar Novo Herói</h2>
+
+  <form method="POST" class="card p-3">
+    {% csrf_token %}
+
+    {% for field in form %}
+      <div class="mb-3">
+        <!-- Rótulo do campo -->
+        {{ field.label_tag }}
+
+        <!-- Campo em si -->
+        {{ field }}
+
+        <!-- Se houver erros nesse campo -->
+        {% if field.errors %}
+          <div class="text-danger">
+            {% for error in field.errors %}
+              <small>{{ error }}</small>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-success">Salvar</button>
+  </form>
+{% endblock %}
