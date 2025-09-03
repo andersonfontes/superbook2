@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .models import Hero
-from .forms import ContatoForm
+from .forms import ContatoForm, HeroForm
 
 
 #FBV - function-based view - view baseada em função
@@ -27,3 +27,13 @@ def contato_view(request):
 
     return render(request, "heroes/contato.html", {"form": form})
     
+def criar_heroi(request):
+        if request.method == "POST":
+            form = HeroForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect('lista_herois')
+        else:
+            form = HeroForm()
+
+        return render(request, "heroes/form_heroi.html", {"form": form})
