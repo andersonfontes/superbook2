@@ -13,10 +13,14 @@ class HeroAdmin(admin.ModelAdmin):
             'fields': ('codinome', 'nome_real')
         }),
         ('Informações Gerais', {
-            'fields': ('poder_principal', 'cidade', 'historia')
+            'fields': ('poder_principal', 'cidade', 'historia' )
         }),
         ('Dados de Registro', {
             'fields': ('criado_em',)
         }),
+        ('Informações de Contato', {
+            'fields': ('email_contato',)
+        }),
     )
+    
     readonly_fields = ['criado_em']    
