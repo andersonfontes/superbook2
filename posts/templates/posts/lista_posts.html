@@ -1,25 +1,3 @@
-
-{% extends 'base.html' %}
-
-{% block title %}Lista de Posts{% endblock %}
-
-{% block content %}
-<h2 class="mb-4">Posts do SuperBook</h2>
-
-<div class="list-group">
-{% for post in posts %}
-  <div class="list-group-item">
-    <h5>{{ post.autor.codinome }}</h5>
-    <p>{{ post.mensagem }}</p>
-    <small class="text-muted">{{ post.criado_em|date:"d/m/Y H:i" }}</small>
-  </div>
-{% empty %}
-  <p>Nenhum post encontrado.</p>
-{% endfor %}
-</div>
-{% endblock %}
-
-
 {% extends 'base.html' %}
 {% block content %}
   <div class="container mt-4">
@@ -27,9 +5,13 @@
     <ul class="list-group">
       {% for post in posts %}
         <li class="list-group-item">
-          <strong>{{ post.autor.codinome }}</strong><br>
+          <strong>{{ post.autor.codinome }}</strong><br />
           {{ post.mensagem|linebreaksbr }}
-          <small class="text-muted">{{ post.criado_em|date:"d/m/Y H:i" }}</small>
+          <br /><small class="text-muted">{{ post.criado_em|date:'d/m/Y H:i' }}</small>
+          <div class="mt-2">
+            <a href="{% url 'editar_post' post.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+            <a href="{% url 'excluir_post' post.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+          </div>
         </li>
       {% empty %}
         <li class="list-group-item">Nenhum post encontrado.</li>
@@ -37,4 +19,3 @@
     </ul>
   </div>
 {% endblock %}
-
