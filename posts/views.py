@@ -5,10 +5,6 @@ from .forms import PostForm
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 
-def lista_posts(request):
-    posts = Post.objects.all()  # busca todos os heróis do banco
-    return render(request, "posts/lista_posts.html", {"posts": posts})
-
 
 class PostListView(ListView):
     model = Post

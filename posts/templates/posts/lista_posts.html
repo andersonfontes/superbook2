@@ -19,3 +19,22 @@
 </div>
 {% endblock %}
 
+
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-4">
+    <h2>Lista de Posts</h2>
+    <ul class="list-group">
+      {% for post in posts %}
+        <li class="list-group-item">
+          <strong>{{ post.autor.codinome }}</strong><br>
+          {{ post.mensagem|linebreaksbr }}
+          <small class="text-muted">{{ post.criado_em|date:"d/m/Y H:i" }}</small>
+        </li>
+      {% empty %}
+        <li class="list-group-item">Nenhum post encontrado.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+
