@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.views.generic import ListView
 from .models import Post
 from .forms import PostForm
+from django.views.generic import CreateView
+from django.urls import reverse_lazy
 
 def lista_posts(request):
     posts = Post.objects.all()  # busca todos os heróis do banco
@@ -13,13 +15,8 @@ class PostListView(ListView):
     template_name = "posts/lista_posts.html"
     context_object_name = "posts"
     
-def criar_post(request):
-    if request.method == "POST":
-        form = PostForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('lista_posts')  # redireciona para a lista após salvar
-    else:
-        form = PostForm()
-
-    return render(request, "posts/form_post.html", {"form": form})    
+class PostCreateView(CreateView):
+    model = Post
+    form_class = PostForm
+    template_name = 'posts/form_post.html'
+    success_url = reverse_lazy('listar_posts') 
