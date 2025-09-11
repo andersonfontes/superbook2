@@ -40,7 +40,8 @@ INSTALLED_APPS = [
 
     # Apps do SuperBook
     'heroes',
-    'posts'
+    'posts',
+    'villains'
 ]
 
 MIDDLEWARE = [
