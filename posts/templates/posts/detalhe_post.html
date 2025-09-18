@@ -5,7 +5,14 @@
   <h2>Post de {{ post.autor.codinome }}</h2>
 <hr>
 <p>{{ post.mensagem|linebreaksbr }}</p>
-  
+  <br>
+<h4>Adicionar comentário:</h4>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+    <br><br>
     <h4>Comentários:</h4>
     {% for comentario in comentarios %}
       <div class="mb-2">
@@ -17,11 +24,6 @@
       <p>Seja o primeiro a comentar!</p>
     {% endfor %}
 
-    <h4>Adicionar comentário:</h4>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
+    
   </div>
 {% endblock %}

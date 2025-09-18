@@ -5,8 +5,9 @@
     <ul class="list-group">
       {% for post in posts %}
         <li class="list-group-item">
+           <!--LINK INSERIDO AQUI-->  <a href="{% url 'detalhe_post' post.pk %}" class="text-dark text-decoration-none"> 
           <strong>{{ post.autor.codinome }}</strong><br />
-          {{ post.mensagem|linebreaksbr }}
+          {{ post.mensagem|linebreaksbr }}  </a>
           <br /><small class="text-muted">{{ post.criado_em|date:'d/m/Y H:i' }}</small>
           <div class="mt-2">
             <a href="{% url 'editar_post' post.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
