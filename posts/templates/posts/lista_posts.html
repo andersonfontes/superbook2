@@ -1,22 +1,28 @@
-{% extends 'base.html' %}
+{% load static %}
+
+{% extends "base.html" %}
 {% block content %}
-  <div class="container mt-4">
-    <h2>Lista de Posts</h2>
-    <ul class="list-group">
-      {% for post in posts %}
-        <li class="list-group-item">
-           <!--LINK INSERIDO AQUI-->  <a href="{% url 'detalhe_post' post.pk %}" class="text-dark text-decoration-none"> 
-          <strong>{{ post.autor.codinome }}</strong><br />
-          {{ post.mensagem|linebreaksbr }}  </a>
-          <br /><small class="text-muted">{{ post.criado_em|date:'d/m/Y H:i' }}</small>
-          <div class="mt-2">
-            <a href="{% url 'editar_post' post.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
-            <a href="{% url 'excluir_post' post.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
-          </div>
-        </li>
-      {% empty %}
-        <li class="list-group-item">Nenhum post encontrado.</li>
-      {% endfor %}
-    </ul>
+<h1 class="mb-3 text-center">Posts</h1>
+
+<a href="{% url 'novo_post' %}" class="btn btn-success mb-3">Novo Post</a>
+
+{% for post in posts %}
+  <div class="mb-3 d-flex align-items-center">
+    {% if post.autor.imagem %}
+      <img src="{{ post.autor.imagem.url }}" class="profile-pic" alt="">
+    {% endif %}
+    <div>
+      <a href="{% url 'detalhe_post' post.pk %}" class="text-dark text-decoration-none">
+        <strong>{{ post.autor.codinome }}</strong><br>
+        {{ post.mensagem|linebreaksbr }}
+      </a>
+      <div class="mt-2">
+        <a href="{% url 'editar_post' post.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+        <a href="{% url 'excluir_post' post.pk %}" class="btn btn-sm btn-outline-danger">Excluir</a>
+      </div>
+    </div>
   </div>
+{% empty %}
+  <p>Nenhum post encontrado.</p>
+{% endfor %}
 {% endblock %}
