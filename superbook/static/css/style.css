@@ -1,0 +1,35 @@
+/* superbook/superbook/static/css/style.css */
+.navbar-custom {
+  background-color: #cce6ff;
+  padding: 18px 24px;
+  min-height: 96px;
+  border-radius: 12px 12px 0 0;
+}
+
+.brand { gap: 12px; }                 /* espaço entre logo e texto */
+.brand-logo { height: 72px; width: auto; display: block; }
+
+.brand-title {
+  font-size: 1.35rem;                 /* ajuste fino do tamanho */
+  font-weight: 700;
+  line-height: 1;                     /* alinha verticalmente ao logo */
+  color: #0b2e59;                     /* azul mais escuro para contraste */
+  letter-spacing: .2px;
+}
+
+@media (max-width: 576px) {
+  .navbar-custom { min-height: 80px; padding: 14px 16px; }
+  .brand-logo { height: 60px; }
+  .brand-title { font-size: 1.1rem; }
+}
+
+.profile-pic {
+  width: 48px !important; /*!important evita que o Boostrap sobreponha essas medidas*/
+  height: 48px !important;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: top;
+}
+
