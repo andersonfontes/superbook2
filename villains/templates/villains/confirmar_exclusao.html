@@ -1,0 +1,13 @@
+{% extends "villains/base_viloes.html" %}
+{% block content %}
+<div class="viloes-root">
+  <h1 class="mb-3">Excluir Vilão</h1>
+  <p>Tem certeza que deseja excluir <strong>{{ object.codinome }}</strong>?</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a href="{% url 'lista_viloes' %}" class="btn btn-outline-secondary ms-2">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
+

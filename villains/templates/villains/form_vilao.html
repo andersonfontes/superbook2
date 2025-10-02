@@ -1,0 +1,13 @@
+{% extends "villains/base_viloes.html" %}
+{% block content %}
+<div class="viloes-root">
+  <h1 class="mb-3">Vilão</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-danger">Salvar</button>
+    <a href="{% url 'lista_viloes' %}" class="btn btn-outline-secondary ms-2">Cancelar</a>
+  </form>
+</div>
+{% endblock %}
+
