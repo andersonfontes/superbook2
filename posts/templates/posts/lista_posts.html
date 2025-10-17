@@ -1,6 +1,5 @@
 {# posts/templates/posts/lista_posts.html (lista) #}
 
-
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
@@ -17,6 +16,17 @@
             <div>
               <strong>{{ post.autor.codinome }}</strong><br />
               {{ post.mensagem|linebreaksbr }}
+              
+              {% comment %}CURTIR (POW){% endcomment %}
+
+              <div class="d-flex align-items-center gap-3 my-3">
+                <form action="{% url 'toggle_pow' post.pk %}" method="post" class="d-inline">
+                  {% csrf_token %}
+                  <button class="btn btn-sm btn-outline-secondary">💥 POW</button>
+                </form>
+                <span class="text-muted">{{ post.likes.count }} curtidas</span>
+              </div>
+              <br />
 
               {% if request.user.is_authenticated and post.autor.usuario_id == request.user.id %}
                 <div class="mt-2">
@@ -32,4 +42,3 @@
     </ul>
   </div>
 {% endblock %}
-

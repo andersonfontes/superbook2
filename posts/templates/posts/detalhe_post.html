@@ -6,6 +6,18 @@
 <hr>
 <p>{{ post.mensagem|linebreaksbr }}</p>
   <br>
+{% comment %} CURTIR (POW) {% endcomment %}
+
+  <div class="d-flex align-items-center gap-3 my-3">
+  <form action="{% url 'toggle_pow' post.pk %}" method="post" class="d-inline">
+    {% csrf_token %}
+    <button class="btn btn-sm btn-outline-secondary">💥 POW</button>
+  </form>
+  <span class="text-muted">{{ post.likes.count }} curtidas</span>
+</div>
+<br>
+
+
 <h4>Adicionar comentário:</h4>
     <form method="post">
       {% csrf_token %}

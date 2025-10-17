@@ -3,10 +3,11 @@ from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from .models import Post
+from .models import Post, Like
 from heroes.models import Hero
 from .forms import PostForm
 from comments.forms import ComentarioForm
+from django.contrib.auth.decorators import login_required
 
 class PostListView(ListView):
     model = Post
@@ -83,3 +84,20 @@ def detalhe_post(request, pk):
         'comentarios': comentarios,
         'form': form
     })
+    
+    
+@login_required
+def toggle_pow(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    hero = getattr(request.user, 'hero', None)
+    if not hero:
+        messages.error(request, "Crie seu herói antes de curtir.")
+        return redirect('criar_heroi')
+
+    like, created = Like.objects.get_or_create(post=post, heroi=hero)
+    if not created:
+        like.delete()
+
+    # Volta para a página anterior (ou lista como fallback)
+    return redirect(request.META.get('HTTP_REFERER', reverse('lista_posts')))
+
