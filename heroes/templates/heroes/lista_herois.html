@@ -1,25 +1,69 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Lista de Heróis</title>
+  </head>
 
-{% block title %}
-  Lista de Heróis
-{% endblock title %}
+  <body>
+    {% extends 'base.html' %}
 
-{% block content %}
-  <h2 class="mb-4">Heróis cadastrados</h2>
-  <div class="row">
-    {% for hero in herois %}
-      <div class="col-md-4">
-        <div class="card mb-3">
-          <div class="card-body">
-            <h5 class="card-title">{{ hero.codinome }}</h5>
-            <p class="card-text">{{ hero.poder_principal }}</p>
-            <small class="text-muted">{{ hero.cidade }}</small>
-          </div>
-        </div>
-      </div>
-    {% empty %}
-      <p>Nenhum herói encontrado.</p>
-    {% endfor %}
+    {% block title %}
+      Lista de Heróis
+    {% endblock %}
+
+    {% block content %}
+    <div class="container mt-3">
+
+  <!-- Mensagem de aviso no topo -->
+  {% if request.user.is_authenticated and not user_tem_heroi %}
+    <div class="alert alert-info mb-4" role="alert">
+      Seu usuário foi criado. Para poder postar, crie seu herói:
+      <a href="{% url 'criar_heroi' %}" class="alert-link">criar herói</a>.
+    </div>
+  {% endif %}
+
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <h2 class="mb-0">Heróis</h2>
+    {% if request.user.is_authenticated and not user_tem_heroi %}
+      <a href="{% url 'criar_heroi' %}" class="btn btn-primary">Novo herói</a>
+    {% endif %}
   </div>
+      
 
-{% endblock content %}
+      <div class="row">
+        {% for hero in herois %}
+          <div class="col-md-4">
+            <div class="card mb-3">
+              <div class="card-body">
+                
+                {% if hero.imagem %}
+                <img src="{{ hero.imagem.url }}" class="profile-pic me-2">
+                <br><br>
+                {% endif %}
+                
+                <h5 class="card-title">{{ hero.codinome }}</h5>
+                <p class="card-text">{{ hero.poder_principal }}</p>
+                <small class="text-muted">{{ hero.cidade }}</small>
+
+                {% if hero.cidade == 'Nova York' %}
+                  <p class="text-success mt-2">Este herói protege Nova York!</p>
+                {% else %}
+                  <p class="text-muted mt-2">Herói de outra cidade.</p>
+                {% endif %}
+
+                {% if request.user.is_authenticated and hero.usuario_id == request.user.id %}
+                  <a href="{% url 'editar_heroi' hero.pk %}" class="btn btn-sm btn-outline-primary">Editar</a>
+                {% endif %}
+
+                
+              </div>
+            </div>
+          </div>
+        {% empty %}
+          <p>Nenhum herói encontrado.</p>
+        {% endfor %}
+      </div>
+    </div>
+    {% endblock %}
+  </body>
+</html>
