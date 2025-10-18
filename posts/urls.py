@@ -4,7 +4,7 @@ from .views import toggle_pow, PostListView, PostCreateView, PostUpdateView, Pos
 
 urlpatterns = [    
     
-    path('lista/', PostListView.as_view(), name='lista_posts'),
+    path('', PostListView.as_view(), name='lista_posts'),
     path('novo/', PostCreateView.as_view(), name='novo_post'), 
     path('<int:pk>/editar/', PostUpdateView.as_view(), name='editar_post'),   
     path('<int:pk>/excluir/', PostDeleteView.as_view(), name='excluir_post'),

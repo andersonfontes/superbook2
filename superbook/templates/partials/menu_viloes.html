@@ -16,9 +16,10 @@
     {% else %}
       <a href="{% url 'account_login' %}" class="ms-3">Entrar</a>
     {% endif %}
-  </div>
+  
 
   {% if user.is_authenticated and user.hero.imagem %}
     <img src="{{ user.hero.imagem.url }}" class="profile-pic" alt="">
   {% endif %}
+  </div>
 </div>
