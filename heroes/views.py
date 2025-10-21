@@ -1,5 +1,3 @@
-
- 
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from .models import Hero
@@ -17,6 +15,7 @@ class HeroListView(ListView):
     context_object_name = "herois"
     
 #FBV - FUNCTION-BASED VIEW - VIEW BASEADA EM FUNCTION  
+
 def lista_herois(request):
     herois = Hero.objects.all()
 
@@ -98,4 +97,3 @@ def redirect_after_login(request):
         return redirect("lista_posts")
     return redirect("lista_herois")
 
-    
